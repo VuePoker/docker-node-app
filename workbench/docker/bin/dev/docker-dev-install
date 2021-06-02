@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+
+# We need to be able to connect to the host for debugging.
+# This is a cross  platform alternative to the inconsistent and/or broken implementation of the host.docker.internal directive..
+# This is a hostname that SHOULD resolve to the host IP on both windows, linux and mac. In practice it does often
+# not work as expected. This operation will make sure the entry exists on any docker version and OS.
+# NOTE THE SUBTLE DIFFERENCE BETWEEN host.docker.internal and docker.host.internal.
+echo -e "`/sbin/ip route|awk '/default/ { print $3 }'`\tdocker.host.internal" | tee -a /etc/hosts > /dev/null
+
+# Set perms and sgid recursively ensure correct owner
+chmod 2755 /var/www/app/
+find /var/www/app -type d -exec chmod 2755 {} \;

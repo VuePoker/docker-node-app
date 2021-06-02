@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      target: app-dev
+    container_name: ${PREFIX}-app
+    environment:
+      TRUSTED_PROXIES: ${DOCKER_DEFAULT_INTERNAL_SUBNET}
+      VIRTUAL_HOST: ${APP_VIRTUAL_HOST}
+      VIRTUAL_PORT: ${APP_PORT}
+      PORT: ${APP_PORT}
+    volumes:
+      - /var/www/app/node_modules # Force exclusion vendor map volume sync
+      - app_data:/var/www/app
+    ports:
+      - ${APP_PORT_MAPPING}
+    cpu_count: 2
+    stdin_open: true  # -i
+    tty: true         # -t
+    mem_limit: 3g
+    ulimits:
+      nproc: 32000
+
+volumes:
+  app_data:
+    name: ${APP_VOLUME}
+    driver: ${APP_VOLUME_DRIVER}
+    driver_opts:
+      type: ${APP_VOLUME_DRIVER_OPT_TYPE}
+      o: ${APP_VOLUME_DRIVER_OPT_O}
+      device: ${APP_VOLUME_DRIVER_OPT_DEVICE}
+    labels:
+      "app.vcs-ref": ${APP_COMMIT}
+      "app.version": ${APP_VERSION}
+      "app.env": ${APP_ENV}
+      "app.project_label": ${PROJECT}
+      "app.build_prefix": ${PREFIX}
+      # See: http://label-schema.org/rc1/
+      "org.label-schema.vendor": ${VENDOR_NAME}
+      "org.label-schema.build-date": ${DOCKER_BUILD_DATE}
+      "org.label-schema.schema-version": ${LABEL_SCHEMA_SPEC_VERSION}
+      "org.label-schema.version": ${DOCKER_BUILD_VERSION}
+      "org.label-schema.vcs-url": ${DOCKER_BUILD_REPOSITORY_URL}
+      "org.label-schema.vcs-ref": ${BUILD_COMMIT}
+
+networks:
+  private_network:
+    name: ${NETWORK_ALIAS}
+    external: true

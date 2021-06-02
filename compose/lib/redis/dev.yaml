@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  redis:
+    container_name: ${PREFIX}-redis
+    image: ${REDIS_IMAGE:-"redis:6.0-alpine"}
+    extends:
+      file: ${DOCKER_COMPOSE_COMMONS}
+      service: base
+    restart: unless-stopped
+    networks:
+      - private_network
+    ports:
+      - ${REDIS_PORT_MAPPING}
+
+  app:
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT}
+    depends_on:
+      - redis
+    links:
+      - redis
+
+networks:
+  private_network:
+    name: ${NETWORK_ALIAS}
+    external: true

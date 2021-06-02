@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  default_service:
+    build:
+      dockerfile: ${DOCKERFILE}
+      args:
+        DOCKER_UID: ${DOCKER_UID}
+        DOCKER_GID: ${DOCKER_GID}
+    restart: unless-stopped
+    extends:
+      service: base
+    environment:
+      DOCKER_UID: ${DOCKER_UID}
+      DOCKER_GID: ${DOCKER_GID}
+      APP_VERSION: ${APP_VERSION}
+      APP_ENV: ${APP_ENV}
+
+  base:
+    networks:
+      - private_network
+    labels:
+      "app.vcs-ref": ${APP_COMMIT}
+      "app.version": ${APP_VERSION}
+      "app.env": ${APP_ENV}
+      "app.project_label": ${PROJECT}
+      "app.build_prefix": ${PREFIX}
+      # See: http://label-schema.org/rc1/
+      "org.label-schema.vendor": ${VENDOR_NAME}
+      "org.label-schema.build-date": ${DOCKER_BUILD_DATE}
+      "org.label-schema.schema-version": ${LABEL_SCHEMA_SPEC_VERSION}
+      "org.label-schema.version": ${DOCKER_BUILD_VERSION}
+      "org.label-schema.vcs-url": ${DOCKER_BUILD_REPOSITORY_URL}
+      "org.label-schema.vcs-ref": ${BUILD_COMMIT}
+
+networks:
+  private_network:
+    name: ${NETWORK_ALIAS}
+    external: true

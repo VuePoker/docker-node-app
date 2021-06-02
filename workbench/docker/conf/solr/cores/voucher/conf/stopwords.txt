@@ -1,0 +1,750 @@
+ | From svn.tartarus.org/snowball/trunk/website/algorithms/dutch/stop.txt
+ | This file is distributed under the BSD License.
+ | See http://snowball.tartarus.org/license.php
+ | Also see http://www.opensource.org/licenses/bsd-license.html
+ |  - Encoding was converted to UTF-8.
+ |  - This notice was added.
+ |
+ | NOTE: To use this file with StopFilterFactory, you must specify format="snowball"
+
+ | A Dutch stop word list. Comments begin with vertical bar. Each stop
+ | word is at the start of a line.
+
+ | This is a ranked list (commonest to rarest) of stopwords derived from
+ | a large sample of Dutch text.
+
+ | Dutch stop words frequently exhibit homonym clashes. These are indicated
+ | clearly below.
+
+de             |  the
+en             |  and
+van            |  of, from
+ik             |  I, the ego
+te             |  (1) chez, at etc, (2) to, (3) too
+dat            |  that, which
+die            |  that, those, who, which
+in             |  in, inside
+een            |  a, an, one
+hij            |  he
+het            |  the, it
+niet           |  not, nothing, naught
+zijn           |  (1) to be, being, (2) his, one's, its
+is             |  is
+was            |  (1) was, past tense of all persons sing. of 'zijn' (to be) (2) wax, (3) the washing, (4) rise of river
+op             |  on, upon, at, in, up, used up
+aan            |  on, upon, to (as dative)
+met            |  with, by
+als            |  like, such as, when
+voor           |  (1) before, in front of, (2) furrow
+had            |  had, past tense all persons sing. of 'hebben' (have)
+er             |  there
+maar           |  but, only
+om             |  round, about, for etc
+hem            |  him
+dan            |  then
+zou            |  should/would, past tense all persons sing. of 'zullen'
+of             |  or, whether, if
+wat            |  what, something, anything
+mijn           |  possessive and noun 'mine'
+men            |  people, 'one'
+dit            |  this
+zo             |  so, thus, in this way
+door           |  through by
+over           |  over, across
+ze             |  she, her, they, them
+zich           |  oneself
+bij            |  (1) a bee, (2) by, near, at
+ook            |  also, too
+tot            |  till, until
+je             |  you
+mij            |  me
+uit            |  out of, from
+der            |  Old Dutch form of 'van der' still found in surnames
+daar           |  (1) there, (2) because
+haar           |  (1) her, their, them, (2) hair
+naar           |  (1) unpleasant, unwell etc, (2) towards, (3) as
+heb            |  present first person sing. of 'to have'
+hoe            |  how, why
+heeft          |  present third person sing. of 'to have'
+hebben         |  'to have' and various parts thereof
+deze           |  this
+u              |  you
+want           |  (1) for, (2) mitten, (3) rigging
+nog            |  yet, still
+zal            |  'shall', first and third person sing. of verb 'zullen' (will)
+me             |  me
+zij            |  she, they
+nu             |  now
+ge             |  'thou', still used in Belgium and south Netherlands
+geen           |  none
+omdat          |  because
+iets           |  something, somewhat
+worden         |  to become, grow, get
+toch           |  yet, still
+al             |  all, every, each
+waren          |  (1) 'were' (2) to wander, (3) wares, (3)
+veel           |  much, many
+meer           |  (1) more, (2) lake
+doen           |  to do, to make
+toen           |  then, when
+moet           |  noun 'spot/mote' and present form of 'to must'
+ben            |  (1) am, (2) 'are' in interrogative second person singular of 'to be'
+zonder         |  without
+kan            |  noun 'can' and present form of 'to be able'
+hun            |  their, them
+dus            |  so, consequently
+alles          |  all, everything, anything
+onder          |  under, beneath
+ja             |  yes, of course
+eens           |  once, one day
+hier           |  here
+wie            |  who
+werd           |  imperfect third person sing. of 'become'
+altijd         |  always
+doch           |  yet, but etc
+wordt          |  present third person sing. of 'become'
+wezen          |  (1) to be, (2) 'been' as in 'been fishing', (3) orphans
+kunnen         |  to be able
+ons            |  us/our
+zelf           |  self
+tegen          |  against, towards, at
+na             |  after, near
+reeds          |  already
+wil            |  (1) present tense of 'want', (2) 'will', noun, (3) fender
+kon            |  could; past tense of 'to be able'
+niets          |  nothing
+uw             |  your
+iemand         |  somebody
+geweest        |  been; past participle of 'be'
+andere         |  other
+
+a
+an
+and
+are
+as
+at
+be
+but
+by
+for
+if
+in
+into
+is
+it
+no
+not
+of
+on
+or
+such
+that
+the
+their
+then
+there
+these
+they
+this
+to
+was
+will
+with
+
+aber           |  but
+
+alle           |  all
+allem
+allen
+aller
+alles
+
+als            |  than, as
+also           |  so
+am             |  an + dem
+an             |  at
+
+ander          |  other
+andere
+anderem
+anderen
+anderer
+anderes
+anderm
+andern
+anderr
+anders
+
+auch           |  also
+auf            |  on
+aus            |  out of
+bei            |  by
+bin            |  am
+bis            |  until
+bist           |  art
+da             |  there
+damit          |  with it
+dann           |  then
+
+der            |  the
+den
+des
+dem
+die
+das
+
+daß            |  that
+
+derselbe       |  the same
+derselben
+denselben
+desselben
+demselben
+dieselbe
+dieselben
+dasselbe
+
+dazu           |  to that
+
+dein           |  thy
+deine
+deinem
+deinen
+deiner
+deines
+
+denn           |  because
+
+derer          |  of those
+dessen         |  of him
+
+dich           |  thee
+dir            |  to thee
+du             |  thou
+
+dies           |  this
+diese
+diesem
+diesen
+dieser
+dieses
+
+
+doch           |  (several meanings)
+dort           |  (over) there
+
+
+durch          |  through
+
+ein            |  a
+eine
+einem
+einen
+einer
+eines
+
+einig          |  some
+einige
+einigem
+einigen
+einiger
+einiges
+
+einmal         |  once
+
+er             |  he
+ihn            |  him
+ihm            |  to him
+
+es             |  it
+etwas          |  something
+
+euer           |  your
+eure
+eurem
+euren
+eurer
+eures
+
+für            |  for
+gegen          |  towards
+gewesen        |  p.p. of sein
+hab            |  have
+habe           |  have
+haben          |  have
+hat            |  has
+hatte          |  had
+hatten         |  had
+hier           |  here
+hin            |  there
+hinter         |  behind
+
+ich            |  I
+mich           |  me
+mir            |  to me
+
+
+ihr            |  you, to her
+ihre
+ihrem
+ihren
+ihrer
+ihres
+euch           |  to you
+
+im             |  in + dem
+in             |  in
+indem          |  while
+ins            |  in + das
+ist            |  is
+
+jede           |  each, every
+jedem
+jeden
+jeder
+jedes
+
+jene           |  that
+jenem
+jenen
+jener
+jenes
+
+jetzt          |  now
+kann           |  can
+
+kein           |  no
+keine
+keinem
+keinen
+keiner
+keines
+
+können         |  can
+könnte         |  could
+machen         |  do
+
+manche         |  some, many a
+manchem
+manchen
+mancher
+manches
+
+mein           |  my
+meine
+meinem
+meinen
+meiner
+meines
+
+muss           |  must
+musste         |  had to
+nach           |  to(wards)
+nicht          |  not
+nichts         |  nothing
+noch           |  still, yet
+nun            |  now
+nur            |  only
+ob             |  whether
+oder           |  or
+ohne           |  without
+sehr           |  very
+
+sein           |  his
+seine
+seinem
+seinen
+seiner
+seines
+
+selbst         |  self
+sich           |  herself
+
+sie            |  they, she
+ihnen          |  to them
+
+sind           |  are
+so             |  so
+
+solche         |  such
+solchem
+solchen
+solcher
+solches
+
+soll           |  shall
+sollte         |  should
+sondern        |  but
+sonst          |  else
+über           |  over
+um             |  about, around
+und            |  and
+
+uns            |  us
+unse
+unsem
+unsen
+unser
+unses
+
+unter          |  under
+viel           |  much
+vom            |  von + dem
+von            |  from
+vor            |  before
+während        |  while
+war            |  was
+waren          |  were
+warst          |  wast
+was            |  what
+weg            |  away, off
+weil           |  because
+weiter         |  further
+
+welche         |  which
+welchem
+welchen
+welcher
+welches
+
+wenn           |  when
+werde          |  will
+werden         |  will
+wie            |  how
+wieder         |  again
+will           |  want
+wir            |  we
+wird           |  will
+wirst          |  willst
+wo             |  where
+wollen         |  want
+wollte         |  wanted
+würde          |  would
+würden         |  would
+zu             |  to
+zum            |  zu + dem
+zur            |  zu + der
+zwar           |  indeed
+zwischen       |  between
+
+
+a
+about
+above
+across
+after
+afterwards
+again
+against
+all
+almost
+alone
+along
+already
+also
+although
+always
+am
+among
+amongst
+amoungst
+amount
+an
+and
+another
+any
+anyhow
+anyone
+anything
+anyway
+anywhere
+are
+around
+as
+at
+back
+be
+became
+because
+become
+becomes
+becoming
+been
+before
+beforehand
+behind
+being
+below
+beside
+besides
+between
+beyond
+bill
+both
+bottom
+but
+by
+call
+can
+cannot
+cant
+co
+computer
+con
+could
+couldnt
+cry
+de
+describe
+detail
+do
+done
+down
+due
+during
+each
+eg
+eight
+either
+eleven
+else
+elsewhere
+empty
+enough
+etc
+even
+ever
+every
+everyone
+everything
+everywhere
+except
+few
+fifteen
+fify
+fill
+find
+fire
+first
+five
+for
+former
+formerly
+forty
+found
+four
+from
+front
+full
+further
+get
+give
+go
+had
+has
+hasnt
+have
+he
+hence
+her
+here
+hereafter
+hereby
+herein
+hereupon
+hers
+herse"
+him
+himse"
+his
+how
+however
+hundred
+i
+ie
+if
+in
+inc
+indeed
+interest
+into
+is
+it
+its
+itse"
+keep
+last
+latter
+latterly
+least
+less
+ltd
+made
+many
+may
+me
+meanwhile
+might
+mill
+mine
+more
+moreover
+most
+mostly
+move
+much
+must
+my
+myse"
+name
+namely
+neither
+never
+nevertheless
+next
+nine
+no
+nobody
+none
+noone
+nor
+not
+nothing
+now
+nowhere
+of
+off
+often
+on
+once
+one
+only
+onto
+or
+other
+others
+otherwise
+our
+ours
+ourselves
+out
+over
+own
+part
+per
+perhaps
+please
+put
+rather
+re
+same
+see
+seem
+seemed
+seeming
+seems
+serious
+several
+she
+should
+show
+side
+since
+sincere
+six
+sixty
+so
+some
+somehow
+someone
+something
+sometime
+sometimes
+somewhere
+still
+such
+system
+take
+ten
+than
+that
+the
+their
+them
+themselves
+then
+thence
+there
+thereafter
+thereby
+therefore
+therein
+thereupon
+these
+they
+thick
+thin
+third
+this
+those
+though
+three
+through
+throughout
+thru
+thus
+to
+together
+too
+top
+toward
+towards
+twelve
+twenty
+two
+un
+under
+until
+up
+upon
+us
+very
+via
+was
+we
+well
+were
+what
+whatever
+when
+whence
+whenever
+where
+whereafter
+whereas
+whereby
+wherein
+whereupon
+wherever
+whether
+which
+while
+whither
+who
+whoever
+whole
+whom
+whose
+why
+will
+with
+within
+without
+would
+yet
+you
+your
+yours
+yourself
+yourselves

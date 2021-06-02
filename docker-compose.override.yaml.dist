@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: ""
+      args:
+        PORT: ${APP_PORT}
+    container_name: ${PREFIX}-app
+    extends:
+      file: ${DOCKER_COMPOSE_COMMONS}
+      service: default_service
+    volumes:
+      - app_data:/var/www/app
+    networks:
+      - private_network
+
+volumes:
+  app_data:
+    name: ${APP_VOLUME}
+    external: true
+
+networks:
+  private_network:
+    name: ${NETWORK_ALIAS}
+    external: true

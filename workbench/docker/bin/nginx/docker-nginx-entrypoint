@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+
+# Check is $DOCKER_DEBUG is not null/zero
+if [ -n "$DOCKER_DEBUG" ]; then
+    # Debug Mode
+    # Start process but keep machine running so we can open a shell and find out what is going on
+    nginx &
+    exec tail -f /dev/null
+else
+  exec nginx -g 'daemon off;'
+fi

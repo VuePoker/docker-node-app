@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  mongodb:
+    image: ${MONGODB_IMAGE:-"mongo:latest"}
+    restart: always
+    container_name: ${PREFIX}-mongodb
+    extends:
+      file: ${DOCKER_COMPOSE_COMMONS}
+      service: base
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
+    ports:
+      - ${MONGODB_PORT_MAPPING:-27017}
+    volumes:
+      - mongodb_data:/data/db
+
+  mongoku:
+    image: huggingface/mongoku
+    restart: always
+    container_name: ${PREFIX}-mongoku
+    extends:
+      file: ${DOCKER_COMPOSE_COMMONS}
+      service: base
+    environment:
+      VIRTUAL_HOST: ${MONGOKU_VIRTUAL_HOST}
+      VIRTUAL_PORT: ${MONGODB_PORT:-27017}
+      MONGOKU_DEFAULT_HOST: "mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongodb:${MONGODB_PORT:-27017}"
+      MONGOKU_SERVER_PORT: ${MONGOKU_PORT:-3100}
+      MONGOKU_COUNT_TIMEOUT: ${MONGOKU_COUNT_TIMEOUT:-5000}
+    ports:
+      - ${MONGOKU_PORT:-3100}
+    links:
+      - mongodb
+
+  app:
+    links:
+      - mongodb
+
+volumes:
+  mongodb_data:

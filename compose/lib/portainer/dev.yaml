@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:2.0.0
+    container_name: ${PREFIX}-portainer
+    extends:
+      file: ${DOCKER_COMPOSE_COMMONS}
+      service: base
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    environment:
+      - VIRTUAL_HOST=${PORTAINER_VIRTUAL_HOST}
+      - VIRTUAL_PORT=${PORTAINER_PORT}
+    ports:
+      - ${PORTAINER_PORT_MAPPING}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  portainer_data:
+
+networks:
+  private_network:
+    name: ${NETWORK_ALIAS}
+    external: true

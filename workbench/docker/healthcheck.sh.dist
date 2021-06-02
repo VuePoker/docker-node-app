@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+
+# Test App
+# > If App has a Healthceck, add it here < #
+
+# e.g. curl --fail http://localhost:8091/health-check || exit 1

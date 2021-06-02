@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  app:
+    environment:
+      MAILER_HOST: mailhog
+      MAILER_PORT: ${MAILHOG_SMTP_PORT}
+      MAILER_USER: ~
+      MAILER_PASSWORD: ~
+      MAILER_TRANSPORT: smtp
+      MAILER_SECURITY: ssl
+    links:
+      - mailhog
+
+  mailhog:
+    build:
+      context: "workbench/docker/mailhog"
+      target: mailhog-dev
+    container_name: ${PREFIX}-mailhog
+    extends:
+      file: ${DOCKER_COMPOSE_COMMONS}
+      service: base
+    ports:
+      - ${MAILHOG_SMTP_PORT_MAPPING} # SMTP server
+      - ${MAILHOG_PORT_MAPPING} # web ui
+    networks:
+      - private_network
+
+networks:
+  private_network:
+    name: ${NETWORK_ALIAS}
+    external: true

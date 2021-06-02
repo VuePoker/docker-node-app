@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      target: app-prod
+    restart: unless-stopped
+
+volumes:
+  app_data:
+    name: ${APP_VOLUME}
+    external: true
+
+networks:
+  private_network:
+    name: ${NETWORK_ALIAS}

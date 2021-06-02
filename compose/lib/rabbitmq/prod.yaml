@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  rabbitmq:
+    # There is a prebuilt RabbitMQ image. See https://hub.docker.com/_/rabbitmq/ for details.
+    # This variant is built on Alpine Linux (it's smaller) and includes the management UI.
+    # To connect to rabbitMQ from containerized consumers or producers use the following AMQP url: :
+    # AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
+    image: ${RABBITMQ_IMAGE:-"rabbitmq:3.8.9-management-alpine"}
+    container_name: ${PREFIX}-rabbitmq
+    extends:
+      file: ${DOCKER_COMPOSE_COMMONS}
+      service: base
+    ports:
+      - 5672
+      - 15672
+    networks:
+      - private_network
+
+networks:
+  private_network:
+    name: ${NETWORK_ALIAS}

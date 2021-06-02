@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  solr:
+    container_name: ${PREFIX}-solr
+    image: ${SOLR_IMAGE:-"solr:latest"}
+    entrypoint:
+      - bash
+      - "-c"
+      - " exec solr -f"
+      #- "precreate-core foobar; precreate-core foo; exec solr -f"
+    extends:
+      file: ${DOCKER_COMPOSE_COMMONS}
+      service: base
+    restart: unless-stopped
+    networks:
+      - private_network
+    #volumes:
+      #- ./workbench/docker/conf/solr/cores/foobar:/var/solr/foobar
+      #- ./workbench/docker/conf/solr/cores/foo:/var/solr/foo
+    ports:
+      - ${SOLR_PORT_MAPPING}
+
+  app:
+    environment:
+      SOLR_HOST: solr
+      SOLR_PORT: ${SOLR_PORT}
+    depends_on:
+      - solr
+    links:
+      - solr
+
+networks:
+  private_network:
+    name: ${NETWORK_ALIAS}
