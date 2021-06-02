@@ -1,7 +1,6 @@
 .idea
 **/*.local
-^workspace/*.md
-workspace/*
+workspace/app
 compose/override/*
 .env
 docker-compose.override.yaml
