@@ -171,13 +171,14 @@ make
 
 ### Volume Mount (OSX Only)
 
-This docker setup detects the current OS version and sets up a NFS mount for docker.
-The local mount is known to be very slow on OSX. At this time NFS is the fastest solution.
+Optionally you can set up NFS to speed up file syncing on OSX.
+Check this script:  `/workbench/bin/setup-nfs-osx.sh`
+Note that I do not use OSX and cannot provide any support on NFS configuration.
+I have used this script in the past but I cannot guarantee it will work well in all use cases. Use with caution.
+By default NFS is disabled. If you do set up NFS you need to set the environment variable and run `make clean-install` to use the NFS mounted volume.
 
-**The script is located in `/workbench/bin/setup-nfs-osx.sh`. Review the script if needed and use the make target to create the NFS mount.**
-
-```bash
-make nfs-osx
+```dotenv
+OSX_NFS_ENABLED=true
 ```
 
 
@@ -311,6 +312,23 @@ Support for the RabbitMQ message queue.
 - **RABBITMQ_UI_VIRTUAL_HOST=rabbitmq.local**
 - **AMQP_URL=amqp://rabbitmq?connection_attempts=5&retry_delay=5**
 
+
+## MongoDB
+
+Support for the MongoDB database and the Mongoku UI.
+
+*Environment variables with default values*
+- **MONGODB_ENABLED=true**
+- **MONGODB_IMAGE=mongo:latest**
+- **MONGODB_USERNAME=mongo**
+- **MONGODB_PASSWORD=mongo**
+- **MONGODB_DATABASE=mongo**
+- **MONGODB_HOST_PORT=**
+- **MONGODB_PORT=27017**
+- **MONGOKU_VIRTUAL_HOST=mongodb.local**
+- **MONGOKU_PORT=3100**
+- **MONGOKU_COUNT_TIMEOUT=5000**
+
 ## Mailhog
 
 Support for mailhog, a in-memory SMTP server plus UI for development.
@@ -322,3 +340,175 @@ Support for mailhog, a in-memory SMTP server plus UI for development.
 - **MAILHOG_SMTP_PORT=1025**
 - **MAILHOG_SMTP_HOST_PORT=**
 - **MAILHOG_VIRTUAL_HOST=mailhog.local**
+
+
+
+# Example Configuration
+
+The makefile dynamically generates a docker-compose configuration. The makefile relies on environment variables and standard docker-compose functionality to merge configs for example.
+
+##### Run this command to see how the generated configuration looks like:
+```bash
+make dump
+```
+##### Run this command to see the values of the (environment) variables:
+```bash
+make vars
+```
+
+##### Example generated configuration:
+```yaml
+version: '3.7'
+networks:
+  private_network:
+    external: true
+    name: cw_nodejs_internal_net
+services:
+  app:
+    build:
+      args:
+        DOCKER_GID: '1000'
+        DOCKER_UID: '1000'
+      context: /home/daan/projects/docker-node-app
+      dockerfile: Dockerfile
+      target: app-dev
+    container_name: cw-nodejs--app
+    cpu_count: 2
+    depends_on:
+      redis:
+        condition: service_started
+    environment:
+      APP_ENV: dev
+      APP_VERSION: ''
+      DOCKER_GID: '1000'
+      DOCKER_UID: '1000'
+      PORT: '7002'
+      REDIS_HOST: redis
+      REDIS_PORT: '6379'
+      TRUSTED_PROXIES: 172.17.0.0/16
+      VIRTUAL_HOST: app.local
+      VIRTUAL_PORT: '7002'
+    labels:
+      app.build_prefix: cw-nodejs-
+      app.env: dev
+      app.project_label: cw_nodejs
+      app.vcs-ref: 9d80258
+      app.version: ''
+      org.label-schema.build-date: ''
+      org.label-schema.schema-version: ''
+      org.label-schema.vcs-ref: 43971e7
+      org.label-schema.vcs-url: ''
+      org.label-schema.vendor: undefined
+      org.label-schema.version: ''
+    links:
+    - mongodb
+    - redis
+    mem_limit: 3g
+    networks:
+      private_network: {}
+    ports:
+    - target: 7002
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    ulimits:
+      nproc: 32000
+    volumes:
+    - app_data:/var/www/app:rw
+    - /var/www/app/node_modules
+  mongodb:
+    container_name: cw-nodejs--mongodb
+    environment:
+      MONGO_INITDB_DATABASE: mongo
+      MONGO_INITDB_ROOT_PASSWORD: m0ng0dB1
+      MONGO_INITDB_ROOT_USERNAME: mongo
+    image: mongo:latest
+    labels:
+      app.build_prefix: cw-nodejs-
+      app.env: dev
+      app.project_label: cw_nodejs
+      app.vcs-ref: 9d80258
+      app.version: ''
+      org.label-schema.build-date: ''
+      org.label-schema.schema-version: ''
+      org.label-schema.vcs-ref: 43971e7
+      org.label-schema.vcs-url: ''
+      org.label-schema.vendor: undefined
+      org.label-schema.version: ''
+    networks:
+      private_network: {}
+    ports:
+    - target: 27017
+    restart: always
+    volumes:
+    - mongodb_data:/data/db:rw
+  mongoku:
+    container_name: cw-nodejs--mongoku
+    environment:
+      MONGOKU_COUNT_TIMEOUT: '5000'
+      MONGOKU_DEFAULT_HOST: mongodb://mongo:m0ng0dB1@mongodb:27017
+      MONGOKU_SERVER_PORT: '3100'
+      VIRTUAL_HOST: mongodb.local
+      VIRTUAL_PORT: '27017'
+    image: huggingface/mongoku
+    labels:
+      app.build_prefix: cw-nodejs-
+      app.env: dev
+      app.project_label: cw_nodejs
+      app.vcs-ref: 9d80258
+      app.version: ''
+      org.label-schema.build-date: ''
+      org.label-schema.schema-version: ''
+      org.label-schema.vcs-ref: 43971e7
+      org.label-schema.vcs-url: ''
+      org.label-schema.vendor: undefined
+      org.label-schema.version: ''
+    links:
+    - mongodb
+    networks:
+      private_network: {}
+    ports:
+    - target: 3100
+    restart: always
+  redis:
+    container_name: cw-nodejs--redis
+    image: redis:6.0-alpine
+    labels:
+      app.build_prefix: cw-nodejs-
+      app.env: dev
+      app.project_label: cw_nodejs
+      app.vcs-ref: 9d80258
+      app.version: ''
+      org.label-schema.build-date: ''
+      org.label-schema.schema-version: ''
+      org.label-schema.vcs-ref: 43971e7
+      org.label-schema.vcs-url: ''
+      org.label-schema.vendor: undefined
+      org.label-schema.version: ''
+    networks:
+      private_network: {}
+    ports:
+    - target: 6379
+    restart: unless-stopped
+volumes:
+  app_data:
+    driver: local
+    driver_opts:
+      device: /home/daan/projects/docker-node-app/workspace/app
+      o: bind
+      type: none
+    labels:
+      app.build_prefix: cw-nodejs-
+      app.env: dev
+      app.project_label: cw_nodejs
+      app.vcs-ref: 9d80258
+      app.version: ''
+      org.label-schema.build-date: ''
+      org.label-schema.schema-version: ''
+      org.label-schema.vcs-ref: 43971e7
+      org.label-schema.vcs-url: ''
+      org.label-schema.vendor: undefined
+      org.label-schema.version: ''
+    name: cw-nodejs-app_volume
+  mongodb_data: {}
+```

@@ -411,6 +411,19 @@ vars:	 ## Dump variables
 	@echo "MAILHOG_PORT: ${MAILHOG_PORT}"
 	@echo "MAILHOG_SMTP_HOST_PORT: ${MAILHOG_SMTP_HOST_PORT}"
 	@echo "MAILHOG_SMTP_PORT: ${MAILHOG_SMTP_PORT}"
+	@echo "==========================================================="
+	@echo "MONGODB"
+	@echo "==========================================================="
+	@echo "MONGODB_ENABLED: ${MAILHOG_ENABLED}"
+	@echo "MONGODB_IMAGE: ${MONGODB_IMAGE}"
+	@echo "MONGODB_USERNAME: ${MONGODB_USERNAME}"
+	@echo "MONGODB_PASSWORD: ${MONGODB_PASSWORD}"
+	@echo "MONGODB_DATABASE: ${MONGODB_DATABASE}"
+	@echo "MONGODB_HOST_PORT: ${MONGODB_HOST_PORT}"
+	@echo "MONGODB_PORT: ${MONGODB_PORT}"
+	@echo "MONGOKU_VIRTUAL_HOST: ${MONGOKU_VIRTUAL_HOST}"
+	@echo "MONGOKU_PORT: ${MONGOKU_PORT}"
+	@echo "MONGOKU_COUNT_TIMEOUT: ${MONGOKU_COUNT_TIMEOUT}"
 
 
 add-hosts: ## Create virtual hosts
