@@ -485,7 +485,7 @@ hosts: ## Print virtual hosts
 		echo "RABBIT MQ: ${RABBITMQ_UI_VIRTUAL_HOST}"; \
 	fi
 
-ssh: ## Open shell application container
+ssh: ## Open shell Redis container
 	@${CMD_PREFIX} $(DOCKER_COMPOSE_BIN) $(COMPOSE_FILES_PATH) exec app /bin/sh
 
 redis-ssh: ## Open shell Redis container

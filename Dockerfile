@@ -12,9 +12,9 @@ ENV PORT $PORT
 
 RUN apk update && apk add build-base git python
 RUN apk add --no-cache	shadow
-ONBUILD RUN /usr/sbin/groupmod -g ${DOCKER_GID} node 2> /dev/null
+ONBUILD RUN /usr/sbin/groupmod --non-unique -g ${DOCKER_GID} node
 #ONBUILD RUN /usr/sbin/useradd -l -s /bin/sh -g ${DOCKER_GID} -u ${DOCKER_UID} node
-ONBUILD RUN /usr/sbin/usermod -g ${DOCKER_GID} -u ${DOCKER_UID} node 2> /dev/null
+ONBUILD RUN /usr/sbin/usermod --non-unique -g ${DOCKER_GID} -u ${DOCKER_UID} node 2> /dev/null
 WORKDIR /var/www/app
 COPY workspace/app/package.json .
 COPY workspace/app/src ./src
